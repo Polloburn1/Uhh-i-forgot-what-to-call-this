@@ -1,4 +1,45 @@
 <!DOCTYPE html>
-<html>
-<p> test </p>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMOGUS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- No favicon request -->
+</head>
+
+<body>
+    <div class="view-container">
+
+        <!-- Main Menu Section -->
+        <div id="view-menu" class="card view-section">
+            <h1>AMOGUS</h1>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">A browser-based amongus.</p>
+
+            <div class="flex-col">
+                <button id="btn-to-lobby">Create / Join Game</button>
+                <button class="secondary" id="btn-to-editor">Map Editor</button>
+            </div>
+        </div>
+
+        <!-- Lobby Section (Hidden by default) -->
+        <div id="view-lobby" class="card view-section hidden">
+            <h2>Game Setup</h2>
+            <div class="input-group">
+                <label>Nickname</label>
+                <input type="text" id="nickname" placeholder="Enter your name">
+            </div>
+            <div class="flex-col">
+                <button id="btn-host">Host New Game</button>
+                <button class="secondary" id="btn-join">Join via Code</button>
+                <button class="secondary" id="btn-back">Back</button>
+            </div>
+        </div>
+
+    </div>
+    <script type="module" src="js/ui_start.js"></script>
+</body>
+
+
 </html>
