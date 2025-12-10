@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Editor - Social Deduction Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #editor-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: 100vh;
+        }
+
+        #sidebar {
+            background: var(--bg-surface);
+            padding: 1rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        #canvas-area {
+            background: #111;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="editor-layout">
+        <div id="sidebar">
+            <h3>Map Editor</h3>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+
+            <div class="flex-col">
+                <div>
+                    <label>Map Name</label>
+                    <input type="text" id="map-name" placeholder="My Custom Map">
+                </div>
+
+                <div>
+                    <label>Background Image</label>
+                    <button class="secondary" style="width:100%"
+                        onclick="document.getElementById('upload-bg').click()">Upload Image</button>
+                    <input type="file" id="upload-bg" accept="image/*" class="hidden">
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;" id="file-name-display">
+                    </p>
+                </div>
+
+                <hr style="border-color: rgba(255,255,255,0.1);">
+
+                <h4>Tools</h4>
+                <button class="secondary" id="tool-wall">Set Walls (Auto)</button>
+                <button class="secondary" id="tool-spawn">Add Spawn</button>
+                <button class="secondary" id="tool-task">Add Task</button>
+
+                <hr style="border-color: rgba(255,255,255,0.1);">
+
+                <button class="success" id="btn-save">Save Map</button>
+                <button class="danger" onclick="window.location.href='index.html'">Exit</button>
+            </div>
+        </div>
+        <div id="canvas-area">
+            <p style="color: var(--text-muted);">Upload a map image to begin</p>
+            <canvas id="editor-canvas" style="display:none; box-shadow: 0 0 50px rgba(0,0,0,0.5);"></canvas>
+        </div>
+    </div>
+
+    <script type="module" src="js/editor.js"></script>
+</body>
+
+</html>
