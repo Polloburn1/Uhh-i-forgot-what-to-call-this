@@ -1,0 +1,320 @@
+Hi! We’re creating a multiplayer social-deduction game inspired by Among Us, but far more open, customizable, and moddable.
+Everything runs entirely in the browser — no servers, no installs, no tricky dependencies.
+
+Please follow these instructions carefully and help build features step-by-step.
+
+🧭 Overall Vision
+
+This game:
+
+Is 2D, top-down, drawn on a canvas.
+
+Supports any number of players (not artificially capped).
+
+Supports any number of imposters, with logical rules.
+
+Uses map images (not procedural generation).
+
+Lets users create their own maps using a friendly map editor.
+
+Stores custom maps locally via IndexedDB.
+
+Runs using WebRTC P2P networking for multiplayer.
+
+Is hosted on GitHub Pages or any static site.
+
+Uses no servers, no executables, no database backends.
+
+It must always feel friendly, approachable, safe, moddable, and fun.
+
+👥 Player & Imposter Rules
+
+Player count has no hard limit.
+
+Imposter count has no hard limit.
+
+Validation rules:
+
+players >= 1
+imposters >= 0
+imposters < players
+
+
+The assistant must enforce these rules in the UI.
+
+🗺️ Map and Layout System
+Maps are drawn from uploaded images
+
+PNG/JPG recommended.
+
+Custom maps are encouraged!
+
+Map JSON includes:
+
+width, height
+
+spawn positions
+
+workstation (task) positions
+
+emergency meeting positions
+
+optional collision processing (see below)
+
+Grid-Based Placement System
+
+When editing a map:
+
+The image is displayed.
+
+The user can place workstation icons and emergency meeting icons on a grid.
+
+Workstations and emergency stations display as div elements layered over the canvas.
+
+The grid is cosmetic; the game still uses precise coordinates.
+
+Custom Icons/Images
+
+For:
+
+Workstations (task stations)
+
+Emergency meeting stations
+
+Users may upload custom images for them.
+
+These images are saved inside IndexedDB alongside the map.
+
+Unlimited Stations
+
+There is no limit on number of:
+
+Work stations
+
+Emergency meeting stations
+
+They are stored as arrays in the map JSON.
+
+🚧 Collision System (Smart!)
+
+Collision detection uses a map image mask:
+
+The map image is analyzed pixel-by-pixel.
+
+Colors drive collision detection:
+
+Dark pixels = walls
+
+Light pixels = open floor
+
+Colored zones can define special areas (e.g., vent tiles)
+
+The assistant should treat this as a color-based collision map.
+
+This allows fully custom shapes without manual bounding boxes.
+
+🛠️ Map Editor
+
+Located at editor.html. It must:
+
+Let users upload a background map image.
+
+Generate a color-based collision mask automatically.
+
+Show a preview of collision overlay (optional toggle).
+
+Let users place:
+
+Spawns
+
+Workstations
+
+Emergency meeting stations
+
+Let users upload custom icons for those stations.
+
+Save maps into IndexedDB.
+
+Allow exporting maps to JSON.
+
+Allow importing maps from JSON.
+
+Must NOT allow execution or uploading of executable files (.exe, .bat, .msi, .dll, .bin, etc).
+
+Maps & images only.
+
+🔐 Lobby & Privacy Settings
+
+Lobby system must allow:
+
+Modes:
+
+Public link (anyone with URL joins)
+
+Private link + PIN
+
+P2P only (manual key exchange)
+
+PIN support:
+
+Optional PIN
+
+Enforced only by host logic
+
+🔌 Multiplayer (WebRTC P2P)
+
+Host is authoritative.
+
+Host manages:
+
+role assignment
+
+state validation
+
+tasks
+
+killing/reporting
+
+voting
+
+victory conditions
+
+Clients send:
+
+movement
+
+actions
+
+Host sends:
+
+world snapshots
+
+updates
+
+meeting triggers
+
+game-over results
+
+🎮 Core Gameplay
+
+Smooth WASD movement.
+
+No walking through walls (collision from mask).
+
+Imposters:
+
+kill cooldown
+
+can sabotage later (optional)
+
+Crewmates:
+
+do tasks at workstation icons
+
+Emergency meetings:
+
+triggered when close to station icons
+
+✨ UI Friendly Guidelines
+
+The assistant should make UX:
+
+Clean
+
+Organized
+
+Minimal clutter
+
+Colorful but readable
+
+Keyboard/Mouse friendly
+
+Players should feel:
+
+Safe
+
+Welcome
+
+Understood
+
+📦 Data Persistence (IndexedDB)
+
+We store:
+
+customMaps       (MapDefinitions)
+mapImages        (base64 image strings)
+workstationIcons (base64 images)
+emergencyIcons   (base64 images)
+preferences      (name, color, etc)
+
+
+No server storage.
+No sync beyond P2P.
+
+🏗️ Code Structure
+
+(AI must follow modular architecture)
+
+index.html        → main menu
+lobby.html        → lobby configuration + player join
+game.html         → runtime gameplay
+editor.html       → map editor
+
+/js/
+  storage.js
+  net.js
+  maps_custom.js
+  maps_local.js
+  maps_editor.js
+  lobby.js
+  game_core.js
+  game_tasks.js
+  game_meetings.js
+  game_input.js
+  game_render.js
+  game_physics.js
+  ui_mainmenu.js
+
+🔒 Safety Rules
+
+The game must NOT allow uploading of executables.
+
+The assistant should:
+
+Reject executable uploads
+
+Accept maps and icons only
+
+Not generate or suggest executables
+
+🤝 Communication Expectations
+
+The assistant should:
+
+Use a friendly tone
+
+Ask clarifying questions if uncertain
+
+Suggest best practices
+
+Keep responses modular and organized
+
+Provide code in small isolated modules without monolith files
+
+Make UI and logic scalable
+
+🌈 Social Tone
+
+The assistant should:
+
+Be helpful
+
+Be constructive
+
+Be respectful
+
+Encourage creativity
+
+Celebrate user-made custom maps and icons
+
+Support repeated iteration and playtesting
